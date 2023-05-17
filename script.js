@@ -149,18 +149,18 @@ const RANDOM_IMG_ENDPOINT = "https://dog.ceo/api/breeds/image/random";
         "irish wolfhound",
       ];
 
-      // Utility function to get a randomly selected item from an array
+      // get a randomly selected item from an array
       function getRandomElement(array) {
         const i = Math.floor(Math.random() * array.length);
         return array[i];
       }
 
-      // Utility function to shuffle the order of items in an array in-place
+      //  shuffle the order of items in an array in-place
       function shuffleArray(array) {
         return array.sort((a, b) => Math.random() - 0.5);
       }
 
-     
+     // generate the choices
       function getMultipleChoices(n, correctAnswer, array) {
         let options =[];
         options.push(correctAnswer);
@@ -174,19 +174,20 @@ const RANDOM_IMG_ENDPOINT = "https://dog.ceo/api/breeds/image/random";
         
       }
 
-      // TODO 2
-      // Given a URL such as "https://images.dog.ceo/breeds/poodle-standard/n02113799_2280.jpg"
-      // return the breed name string as formatted in the breed list, e.g. "standard poodle"
+      // generate the breeds from url
       function getBreedFromURL(url) {
-        // The string method .split(char) may come in handy
-        // Try to use destructuring as much as you can
+            let rawbreed = url.split("/")[4];
+            let splittedbreed = rawbreed.split("-").reverse().join(" ");
+            return splittedbreed;
+        
       }
-
-      // TODO 3
-      // Given a URL, fetch the resource at that URL,
-      // then parse the response as a JSON object,
-      // finally return the "message" property of its body
-      async function fetchMessage(url) {}
+      // get the actual message from the url
+      async function fetchMessage(url) {
+            const response = await fetch(url);
+            const response_msg = await response.json();
+            const {message} = response_msg;
+            return message;        
+      }
 
       // Function to add the multiple-choice buttons to the page
       function renderButtons(choicesArray, correctAnswer) {
@@ -210,7 +211,16 @@ const RANDOM_IMG_ENDPOINT = "https://dog.ceo/api/breeds/image/random";
         // Create a button element whose name, value, and textContent properties are the value of that choice,
         // attach a "click" event listener with the buttonHandler function,
         // and append the button as a child of the options element
-      }
+        for(let x of choicesArray){
+            const btn = document.createElement("button");
+            btn.textContent = x;
+            btn.name = x;
+            btn.value = x;
+            btn.addEventListener("click",buttonHandler);
+            options.appendChild(btn);
+        }
+    }
+
 
       // Function to add the quiz content to the page
       function renderQuiz(imgUrl, correctAnswer, choices) {
@@ -237,6 +247,4 @@ const RANDOM_IMG_ENDPOINT = "https://dog.ceo/api/breeds/image/random";
         return [doggoImgUrl, correctBreed, breedChoices];
       }
 
-      // TODO 5
-      // Asynchronously call the loadQuizData() function,
-      // Then call renderQuiz() with the returned imageUrl, correctAnswer, and choices
+      
