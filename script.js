@@ -1,3 +1,4 @@
+import { getRandomElement, shuffleArray, getMultipleChoices } from "/utilities.js";
 const RANDOM_IMG_ENDPOINT = "https://dog.ceo/api/breeds/image/random";
 
       const BREEDS = [
@@ -149,30 +150,9 @@ const RANDOM_IMG_ENDPOINT = "https://dog.ceo/api/breeds/image/random";
         "irish wolfhound",
       ];
 
-      // get a randomly selected item from an array
-      function getRandomElement(array) {
-        const i = Math.floor(Math.random() * array.length);
-        return array[i];
-      }
+   
 
-      //  shuffle the order of items in an array in-place
-      function shuffleArray(array) {
-        return array.sort((a, b) => Math.random() - 0.5);
-      }
-
-     // generate the choices
-      function getMultipleChoices(n, correctAnswer, array) {
-        let options =[];
-        options.push(correctAnswer);
-        while(options.length <n){
-            let possibility = getRandomElement(array);
-            if(!options.includes(possibility)){
-            options.push(getRandomElement(array));
-        }
-    }
-        return shuffleArray(options);
-        
-      }
+    
 
       // generate the breeds from url
       function getBreedFromURL(url) {
@@ -206,11 +186,7 @@ const RANDOM_IMG_ENDPOINT = "https://dog.ceo/api/breeds/image/random";
 
         const options = document.getElementById("options"); // Container for the multiple-choice buttons
 
-        // TODO 4
-        // For each of the choices in choicesArray,
-        // Create a button element whose name, value, and textContent properties are the value of that choice,
-        // attach a "click" event listener with the buttonHandler function,
-        // and append the button as a child of the options element
+        //iterate through choices and create buttons for every each of 'em
         for(let x of choicesArray){
             const btn = document.createElement("button");
             btn.textContent = x;
