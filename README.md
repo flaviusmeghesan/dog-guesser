@@ -1,1 +1,2 @@
-# location-guesser @js
+# location-guesser @javascript
+
