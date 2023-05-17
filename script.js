@@ -247,4 +247,7 @@ const RANDOM_IMG_ENDPOINT = "https://dog.ceo/api/breeds/image/random";
         return [doggoImgUrl, correctBreed, breedChoices];
       }
 
-      
+      // render data
+      const [imgUrl,correctAnswer,choices] =await loadQuizData();
+
+      renderQuiz(imgUrl,correctAnswer,choices);
